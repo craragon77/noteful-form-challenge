@@ -24,7 +24,7 @@ export default class AddFolder extends Component {
     const params = {
       method: 'POST',
       'content-type': 'application/json',
-      name : folderName
+      body: JSON.stringify({name: folderName})
     }
     fetch(url, params)
     .then(response =>{
