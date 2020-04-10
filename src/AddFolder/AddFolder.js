@@ -18,17 +18,14 @@ export default class AddFolder extends Component {
   
   handleSubmit(e){
     e.preventDefault()
-    console.log('the folder name is: ' + this.state.value)
     const folderName = this.state.value;
-    const url = 'http://localhost:9090/api/folder'
-    const options = {
-      method: 'POST',
-      //'content-Type': 'application/JSON',
-      header: {
-        name: folderName
-      }
+    console.log('the folder name is: ' + folderName)
+    const url = 'http://localhost:9090/folders';
+    const params = {
+      'content-type': 'application/json',
+      name : folderName
     }
-    fetch(url, options)
+    fetch(url, params)
     .then(response =>{
       if (!response.ok){
         throw new Error('Something went wrong, try again later')
@@ -39,6 +36,7 @@ export default class AddFolder extends Component {
       this.setState({
         value: ' '
       })
+      console.log(url + params)
     })
     .catch(error => {
       alert('something went wrong, try again later')
