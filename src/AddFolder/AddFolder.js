@@ -21,11 +21,23 @@ export default class AddFolder extends Component {
     console.log('the folder name is: ' + this.state.value)
     const folderName = this.state.value;
     const url = 'http://localhost:9090/folder'
-    fetch(url, {
+    const options = {
       method: 'POST',
+      'content-Type': 'application/JSON',
       header: {
         name: folderName
       }
+    }
+    fetch(url, options)
+    .then( response =>{
+      if (!response.ok){
+        throw new Error('Something went wrong, try again later')
+      }
+      return (response.json())
+    }
+    )
+    .catch(error => {
+      alert('something went wrong, try again later')
     })
   }
     render() {
