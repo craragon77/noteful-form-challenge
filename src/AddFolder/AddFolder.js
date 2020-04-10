@@ -22,6 +22,7 @@ export default class AddFolder extends Component {
     console.log('the folder name is: ' + folderName)
     const url = 'http://localhost:9090/folders';
     const params = {
+      method: 'POST',
       'content-type': 'application/json',
       name : folderName
     }
