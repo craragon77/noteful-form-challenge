@@ -3,26 +3,42 @@ import React, { Component } from 'react'
 import './AddFolder.css'
 
 export default class AddFolder extends Component {
-  submitForm(e) {
-      e.preventDefault();
-      const folderName = e.target.value;
-      console.log('the folder name is: ' + folderName);
-      console.log(e.target.value)
-      }
+  constructor(props){
+    super(props);
+    this.state = {value: ''};
+  this.handleChange = this.handleChange.bind(this);
+  this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  
+  handleChange(e){
+    this.setState({
+      value: e.target.value
+    })
+  }
+  
+  handleSubmit(e){
+    e.preventDefault()
+    console.log('the folder name is: ' + this.state.value)
+    const folderName = this.state.value;
+    const url = '' //whatever the url will be go inside here (where the hell is it)
+    this.setState({
+      value: ''
+    })
+  }
     render() {
     return (
       <section className='AddFolder'>
         <h2>Create a folder</h2>
         {/*<NotefulForm>*/}
-        <form>
+        <form onSubmit = {e => this.handleSubmit(e)}>
           <div className='field'>
             <label htmlFor='folder-name-input' value='name'>
               Name
             </label>
-            <input type='text' id='folder-name-input' name='folder-name-input' ref={this.nameInput}/>
+            <input type='text' id='folder-name-input' name='folder-name-input' value={this.state.value} onChange={this.handleChange}/>
           </div>
           <div className='buttons'>
-            <button type='submit' onClick = {e => this.submitForm(e)}>
+            <button type='submit'>
               Add folder
             </button>
           </div>
