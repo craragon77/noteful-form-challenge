@@ -20,9 +20,12 @@ export default class AddFolder extends Component {
     e.preventDefault()
     console.log('the folder name is: ' + this.state.value)
     const folderName = this.state.value;
-    const url = '' //whatever the url will be go inside here (where the hell is it)
-    this.setState({
-      value: ''
+    const url = 'http://localhost:9090/folder'
+    fetch(url, {
+      method: 'POST',
+      header: {
+        name: folderName
+      }
     })
   }
     render() {
