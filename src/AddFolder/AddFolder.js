@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 //import NotefulForm from '../NotefulForm/NotefulForm'
 import './AddFolder.css'
+import FolderErrorBoundries from './FolderErrorBoundries';
 
 export default class AddFolder extends Component {
   constructor(props){
@@ -23,7 +24,9 @@ export default class AddFolder extends Component {
     const url = 'http://localhost:9090/folders';
     const params = {
       method: 'POST',
-      'content-type': 'application/json',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({name: folderName})
     }
     fetch(url, params)
@@ -48,21 +51,25 @@ export default class AddFolder extends Component {
       <section className='AddFolder'>
         <h2>Create a folder</h2>
         {/*<NotefulForm>*/}
-        <form onSubmit = {e => this.handleSubmit(e)}>
-          <div className='field'>
-            <label htmlFor='folder-name-input' value='name'>
-              Name
-            </label>
-            <input type='text' id='folder-name-input' name='folder-name-input' value={this.state.value} onChange={this.handleChange}/>
-          </div>
-          <div className='buttons'>
-            <button type='submit'>
-              Add folder
-            </button>
-          </div>
-        </form>
+        <FolderErrorBoundries>
+          <form onSubmit = {e => this.handleSubmit(e)}>
+            <div className='field'>
+                <label htmlFor='folder-name-input' value='name'>
+                Name
+              </label>
+              <input type='text' id='folder-name-input' name='folder-name-input' value={this.state.value} onChange={this.handleChange}/>
+            </div>
+            <div className='buttons'>
+              <button type='submit'>
+                Add folder
+              </button>
+            </div>
+          </form>
+        </FolderErrorBoundries>
         {/*</NotefulForm>*/}
       </section>
     )
   }
+
+  
 }
