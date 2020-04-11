@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 //import NotefulForm from '../NotefulForm/NotefulForm'
 import './AddNote.css'
 import NoteErrorBoundries from './NoteErrorBoundries';
+import propTypes from 'prop-types'
 
 export default class AddNote extends Component {
   static defaultProps = {
@@ -9,46 +10,64 @@ export default class AddNote extends Component {
   }
   constructor(props){
     super(props);
-    this.nameValue = React.createRef();
-    this.contentValue = React.createRef();
-    //this.handleClicks = this.handleClicks.bind(this)
-    //this.onSubmit = this.handleClicks.bind(this)
+    this.state = {
+      name: '',
+      content: '',
+      selectedFolder: ''
+    };
+    this.handleNameChange = this.handleNameChange.bind(this)
+    this.handleContentChange = this.handleContentChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleChange(e){
+  handleNameChange(e){
     this.setState({
-      nameValue: e.target.value,
-      contentValue: e.target.value
+      name: e.target.value,
+    })
+  }
+  handleContentChange(e){
+    this.setState({
+      content: e.target.value
+    })
+  }
+  onFolderSelect(e){
+    this.setState({
+      selectedFolder: e.target.value
     })
   }
 
   handleSubmit(e){
     e.preventDefault();
-    const name = this.nameValue.current.value
-    const content = this.contentValue.current.value
+    //console.log(this.props.folders)
+    const nameValue = this.state.name
+    const contentValue = this.state.content
     const time = new Date()
-    console.log('this is the title of the note: ' + name + ' , and its contents are as follows: ' + content + ' , and the time is: ' + time)
+    const folderIdValue = this.state.selectedFolder
+    console.log(folderIdValue);
+    const testing = {nameValue, contentValue, time, folderIdValue}
+    console.log('this is the title of the note: ' + nameValue + 
+    ' , and its contents are as follows: ' + contentValue + 
+    ' , and the time is: ' + time + 
+    ' , and the folder id is: ' + folderIdValue);
     const url = 'http://localhost:9090/notes';
     const params = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({name: name}),
-      body: JSON.stringify({modified: time}),
-      body: JSON.stringify({content: content})
+      body: JSON.stringify(testing)
     }
+
     fetch(url, params)
       .then(response => {
         if(!response.ok){
           throw new Error('Something went wrong, try again later')
         }
-        return response.json()
+        return (response.json());
       })
       .then(data => {
-        console.log(url, params)
         this.setState({
-          nameValue: '',
-          contentValue: '',
+          name: '',
+          content: ''
         })
       })
         .catch(error => {
@@ -57,6 +76,7 @@ export default class AddNote extends Component {
     }
   render() {
     const { folders } = this.props
+    const folder = {folders}
     return (
       <section className='AddNote'>
         <h2>Create a note</h2>
@@ -67,19 +87,19 @@ export default class AddNote extends Component {
               <label htmlFor='note-name-input'>
                 Name
               </label>
-              <input type='text' id='note-name-input' ref={this.nameValue} onChange = {e => this.handleChange(e)}/>
+              <input type='text' id='note-name-input' name={this.state.name} onChange = {e => this.handleNameChange(e)} required/>
             </div>
             <div className='field'>
               <label htmlFor='note-content-input'>
                 Content
               </label>
-              <textarea id='note-content-input' ref={this.contentValue}/>
+              <textarea id='note-content-input' content={this.state.content} onChange = {e => this.handleContentChange(e)} required/>
             </div>
             <div className='field'>
               <label htmlFor='note-folder-select'>
                 Folder
               </label>
-              <select id='note-folder-select'>
+              <select id='note-folder-select' selectedFolder={this.folders.id} onFolderSelect = {e => this.onFolderSelect(e)} required>
                 <option value={null}>...</option>
                 {folders.map(folder =>
                   <option key={folder.id} value={folder.id}>
@@ -101,4 +121,9 @@ export default class AddNote extends Component {
           
     )
   }
+}
+
+AddNote.propTypes = {
+  name: propTypes.string,
+  content: propTypes.string
 }

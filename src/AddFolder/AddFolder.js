@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-//import NotefulForm from '../NotefulForm/NotefulForm'
-import './AddFolder.css'
+import React, { Component } from 'react';
+//import NotefulForm from '../NotefulForm/NotefulForm';
+import './AddFolder.css';
 import FolderErrorBoundries from './FolderErrorBoundries';
+import propTypes from 'prop-types';
 
 export default class AddFolder extends Component {
   constructor(props){
@@ -57,7 +58,7 @@ export default class AddFolder extends Component {
                 <label htmlFor='folder-name-input' value='name'>
                 Name
               </label>
-              <input type='text' id='folder-name-input' name='folder-name-input' value={this.state.value} onChange={this.handleChange}/>
+              <input type='text' id='folder-name-input' name='folder-name-input' value={this.state.value} onChange={this.handleChange} required/>
             </div>
             <div className='buttons'>
               <button type='submit'>
@@ -69,7 +70,9 @@ export default class AddFolder extends Component {
         {/*</NotefulForm>*/}
       </section>
     )
-  }
+  }  
+}
 
-  
+AddFolder.propTypes = {
+  value: propTypes.string.required
 }
