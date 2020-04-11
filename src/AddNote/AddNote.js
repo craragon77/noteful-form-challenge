@@ -12,8 +12,7 @@ export default class AddNote extends Component {
     super(props);
     this.state = {
       name: '',
-      content: '',
-      selectedFolder: ''
+      content: ''
     };
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleContentChange = this.handleContentChange.bind(this)
@@ -76,7 +75,6 @@ export default class AddNote extends Component {
     }
   render() {
     const { folders } = this.props
-    const folder = {folders}
     return (
       <section className='AddNote'>
         <h2>Create a note</h2>
@@ -99,7 +97,7 @@ export default class AddNote extends Component {
               <label htmlFor='note-folder-select'>
                 Folder
               </label>
-              <select id='note-folder-select' selectedFolder={this.folders.id} onFolderSelect = {e => this.onFolderSelect(e)} required>
+              <select id='note-folder-select' onFolderSelect = {e => this.onFolderSelect(e)} selectedFolder={this.state.selectedFolder} required>
                 <option value={null}>...</option>
                 {folders.map(folder =>
                   <option key={folder.id} value={folder.id}>
