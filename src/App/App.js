@@ -29,26 +29,26 @@ class App extends Component {
         'Content-Type': 'application/json'
       }
     }
-    fetch(url, foldersParam, params)
+    fetch('http://localhost:9090/folders')
     .then(response => {
       if (!response.ok){
         return ('Something went wrong with the folder, try again later')
       }
-      return (response.ok)
+      return (console.log(response))
     })
-    .then(data => console.log(data))
+    //then(response => console.log(response))
     .catch(error => {
       console.log('idk whats happening with the folders, try again later #catch')
       console.log(url, foldersParam, params)
     })
-    fetch(url, notesParam, params)
+    fetch('http://localhost:9090/notes')
     .then(response => {
       if (!response.ok){
         return ('something went wrong with the notes, try again later')
       }
-      return (response.ok)
+      return (console.log(response))
     })
-    .then(data => console.log(data))
+    //.then(response => console.log(response))
     .catch(error => {
       console.log('idk whats up with the notes, try again later #catch')
       console.log(url, notesParam, params)

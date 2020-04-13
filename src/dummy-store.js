@@ -1,3 +1,51 @@
+import React, {Component} from 'react'
+
+/*export default class STORE extends Component{
+  constructor(props){
+    super(props);
+    const url = 'http://localhost:9090'
+    const folderParam = '/folders'
+    const notesParam = '/notes'
+    const params = {
+      'method': 'GET',
+      'Content-Type': 'application/json'
+    }
+  fetch(url, folderParam, params)
+    .then(response => {
+      if (!response.ok){
+        return ('Something went wrong with the folder, try again later')
+      }
+      return (response.ok)
+    })
+    .then(data => console.log(data))
+    .catch(error => {
+      console.log('idk whats happening with the folders, try again later #catch')
+      console.log(url, folderParam, params)
+    })
+    fetch(url, notesParam, params)
+    .then(response => {
+      if (!response.ok){
+        return ('something went wrong with the notes, try again later')
+      }
+      return (response.ok)
+    })
+    .then(data => console.log(data))
+    .catch(error => {
+      console.log('idk whats up with the notes, try again later #catch')
+      console.log(url, notesParam, params)
+    })
+  }
+  render (){
+    return(
+      <p>idk how to do this</p>
+    )
+  }
+} */
+
+
+
+
+
 export default {
   "folders": [
     {
@@ -114,3 +162,4 @@ export default {
     }
   ]
 }
+
