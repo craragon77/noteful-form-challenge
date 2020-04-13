@@ -30,25 +30,15 @@ class App extends Component {
       }
     }
     fetch('http://localhost:9090/folders')
-    .then(response => {
-      if (!response.ok){
-        return ('Something went wrong with the folder, try again later')
-      }
-      return (console.log(response))
-    })
-    //then(response => console.log(response))
+    .then(response => response.json)
+    .then(data => console.log(data))
     .catch(error => {
       console.log('idk whats happening with the folders, try again later #catch')
-      console.log(url, foldersParam, params)
+      console.log(error)
     })
     fetch('http://localhost:9090/notes')
-    .then(response => {
-      if (!response.ok){
-        return ('something went wrong with the notes, try again later')
-      }
-      return (console.log(response))
-    })
-    //.then(response => console.log(response))
+    .then(response => response.json())
+    .then(data => console.log(data))
     .catch(error => {
       console.log('idk whats up with the notes, try again later #catch')
       console.log(url, notesParam, params)
