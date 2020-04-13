@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Note from '../Note/Note'
 import CircleButton from '../CircleButton/CircleButton'
 import './NoteListMain.css'
+import propTypes from 'prop-types';
+
 
 export default function NoteListMain(props) {
   return (
@@ -37,4 +39,10 @@ export default function NoteListMain(props) {
 
 NoteListMain.defaultProps = {
   notes: [],
+}
+
+NoteListMain.propTypes = {
+  name: propTypes.string.isRequired,
+  date: propTypes.instanceOf(Date).isRequired,
+  id: propTypes.number.isRequired
 }

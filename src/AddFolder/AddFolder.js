@@ -74,5 +74,5 @@ export default class AddFolder extends Component {
 }
 
 AddFolder.propTypes = {
-  value: propTypes.string.required
+  value: propTypes.string.isRequired
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import Note from '../Note/Note'
 import './NotePageMain.css'
+import propTypes from 'prop-types';
 
 export default function NotePageMain(props) {
   return (
@@ -24,3 +25,10 @@ NotePageMain.defaultProps = {
     content: '',
   }
 }
+
+NotePageMain.propTypes = {
+  name: propTypes.string.isRequired,
+  id: propTypes.number.isRequired,
+  modified: propTypes.instanceOf(Date).isRequired
+}
+

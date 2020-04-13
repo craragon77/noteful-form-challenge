@@ -66,8 +66,8 @@ export default class AddNote extends Component {
       })
       .then(data => {
         this.setState({
-          name: '',
-          content: ''
+          nameValue: '',
+          contentValue: ''
         })
       })
         .catch(error => {
@@ -123,6 +123,7 @@ export default class AddNote extends Component {
 }
 
 AddNote.propTypes = {
-  name: propTypes.string,
-  content: propTypes.string
+  nameValue: propTypes.string,
+  contentValue: propTypes.string
+
 }
