@@ -30,10 +30,10 @@ class App extends Component {
       }
     }
     fetch('http://localhost:9090/folders')
-    .then(response => response.json)
+    .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => {
-      console.log('idk whats happening with the folders, try again later #catch')
+      console.log('idk whats up with the folders, try again later #catch')
       console.log(error)
     })
     fetch('http://localhost:9090/notes')
@@ -41,7 +41,7 @@ class App extends Component {
     .then(data => console.log(data))
     .catch(error => {
       console.log('idk whats up with the notes, try again later #catch')
-      console.log(url, notesParam, params)
+      console.log(error)
     })
   }
 
