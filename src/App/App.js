@@ -7,7 +7,6 @@ import NoteListMain from '../NoteListMain/NoteListMain'
 import NotePageMain from '../NotePageMain/NotePageMain'
 import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
-import dummyStore from '../dummy-store'
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers'
 import './App.css'
 
@@ -143,8 +142,6 @@ class App extends Component {
   }
 
   render() {
-    //console.log(getFolders)
-    //console.log(getNotes)
     return (
       <div className='App'>
         <nav className='App__nav'>

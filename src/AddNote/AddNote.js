@@ -56,8 +56,11 @@ export default class AddNote extends Component {
       },
       body: JSON.stringify(testing)
     }
-
-    fetch(url, params)
+    if (folderIdValue === ''){
+      alert('please select a folder into which this note can live')
+    }
+     else (
+       fetch(url, params)
       .then(response => {
         if(!response.ok){
           throw new Error('Something went wrong, try again later')
@@ -73,6 +76,7 @@ export default class AddNote extends Component {
         .catch(error => {
           alert('Something went wrong. Try again later')
         })
+     )
     }
   render() {
     const { folders } = this.props
@@ -98,7 +102,7 @@ export default class AddNote extends Component {
               <label htmlFor='note-folder-select'>
                 Folder
               </label>
-              <select id='note-folder-select' onChange = {e => this.onFolderSelect(e)} selectedFolder={this.state.selectedFolder} required>
+              <select required id='note-folder-select' onChange = {e => this.onFolderSelect(e)} selectedFolder={this.state.selectedFolder}>
                 <option value={null}>...</option>
                 {folders.map(folder =>
                   <option key={folder.id} value={folder.id}>
@@ -124,6 +128,6 @@ export default class AddNote extends Component {
 
 AddNote.propTypes = {
   nameValue: propTypes.string,
-  contentValue: propTypes.string
-
+  contentValue: propTypes.string,
+  folderIdValue: propTypes.number.isRequired
 }
