@@ -20,25 +20,25 @@ class App extends Component {
   componentDidMount() {
     // fake date loading from API call
     //setTimeout(() => this.setState(dummyStore), 600)
-    const url = 'http://localhost:9090'
-    const foldersParam = '/folders'
-    const notesParam = '/notes'
-    const params = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
     fetch('http://localhost:9090/folders')
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data =>{ 
+      const getFolders = data
+      this.setState({
+        folders: getFolders
+      })
+    })
     .catch(error => {
       console.log('idk whats up with the folders, try again later #catch')
-      console.log(error)
     })
     fetch('http://localhost:9090/notes')
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+      const getNotes = data
+      this.setState({
+        notes: getNotes
+      })
+    })
     .catch(error => {
       console.log('idk whats up with the notes, try again later #catch')
       console.log(error)
@@ -143,6 +143,8 @@ class App extends Component {
   }
 
   render() {
+    //console.log(getFolders)
+    //console.log(getNotes)
     return (
       <div className='App'>
         <nav className='App__nav'>
