@@ -49,13 +49,20 @@ export default class AddNote extends Component {
     ' , and the time is: ' + time + 
     ' , and the folder id is: ' + folderIdValue);
     const url = 'http://localhost:9090/notes';
+    const testingTwo = {
+      "folderId": testing.folderIdValue,
+      "name": testing.nameValue,
+      "modified": testing.time,
+      "content": testing.contentValue
+    } 
     const params = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(testing)
+      body: JSON.stringify(testingTwo)
     }
+    
     if (folderIdValue === ''){
       alert('please select a folder into which this note can live')
     }
@@ -68,18 +75,10 @@ export default class AddNote extends Component {
         return (response.json());
       })
       .then(data => {
-        console.log(data)
-        let newNote = {
-          "id": data.id,
-          "name": data.name,
-          "modified": data.modified,
-          "folderId": data.folderId,
-          "content": data.content
-        } 
-        this.props.handleAddNote(newNote)
         this.setState({
-          nameValue: '',
-          contentValue: ''
+          name: '',
+          content: '',
+          selectedFolder: ''
         })
       })
         .catch(error => {
