@@ -8,6 +8,7 @@ import propTypes from 'prop-types';
 
 
 export default function NoteListNav(props) {
+  //console.log('the NotesListNav prop is:' + props.notes)
   return (
     <div className='NoteListNav'>
       <ul className='NoteListNav__list'>

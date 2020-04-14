@@ -8,6 +8,7 @@ import propTypes from 'prop-types';
 
 
 export default function NoteListMain(props) {
+  //console.log('the NoteListMain got this prop: ' + props.notes)
   return (
     <section className='NoteListMain'>
       <ul>

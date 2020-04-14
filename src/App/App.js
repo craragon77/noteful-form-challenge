@@ -44,6 +44,14 @@ class App extends Component {
     })
   }
 
+  handleAddNote = (newNote) => {
+    this.setState({
+      'id': '',
+      'name': '',
+      'folder': '',
+      'content': ''
+    })
+  }
   renderNavRoutes() {
     const { notes, folders } = this.state
     return (
@@ -130,7 +138,7 @@ class App extends Component {
           path='/add-note'
           render={routeProps => {
             return (
-              <AddNote
+              <AddNote handleAddNote = {this.handleAddNote}
                 {...routeProps}
                 folders={folders}
               />

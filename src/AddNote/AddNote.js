@@ -68,6 +68,15 @@ export default class AddNote extends Component {
         return (response.json());
       })
       .then(data => {
+        console.log(data)
+        let newNote = {
+          "id": data.id,
+          "name": data.name,
+          "modified": data.modified,
+          "folderId": data.folderId,
+          "content": data.content
+        } 
+        this.props.handleAddNote(newNote)
         this.setState({
           nameValue: '',
           contentValue: ''
