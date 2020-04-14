@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 //import NotefulForm from '../NotefulForm/NotefulForm'
 import './AddNote.css'
 import NoteErrorBoundries from './NoteErrorBoundries';
-import propTypes from 'prop-types'
+import propTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
 
 export default class AddNote extends Component {
   static defaultProps = {
@@ -80,6 +81,9 @@ export default class AddNote extends Component {
           content: '',
           selectedFolder: ''
         })
+      })
+      .then(e => {
+          this.props.history.push('/')
       })
         .catch(error => {
           alert('Something went wrong. Try again later')

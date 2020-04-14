@@ -43,6 +43,9 @@ export default class AddFolder extends Component {
       })
       console.log(url + params)
     })
+    .then(e => {
+      this.props.history.push('/')
+  })
     .catch(error => {
       alert('something went wrong, try again later')
     })
