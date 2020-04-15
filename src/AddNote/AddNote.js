@@ -84,8 +84,13 @@ export default class AddNote extends Component {
       "name": testing.nameValue,
       "modified": testing.time,
       "content": testing.contentValue
-    } 
-    this.newAddedNote(testingTwo)
+    }
+    if (folderIdValue === ''){
+      alert('please select a folder' )
+    } else (
+      this.newAddedNote(testingTwo)
+    )
+    
   }
 
   //submitAndGoHome(e){

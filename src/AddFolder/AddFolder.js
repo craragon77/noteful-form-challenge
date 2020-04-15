@@ -26,21 +26,24 @@ export default class AddFolder extends Component {
     this.newAddedFolder(folderName)
   }
 
-  newAddedFolder(folderName) {
+  newAddedFolder(newFolder) {
+    console.log(newFolder)
     const folderUrl = 'http://localhost:9090/folders'
       const params = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          body: JSON.stringify(folderName)
         },
+        body: JSON.stringify({name: newFolder})
       }
+      console.log(newFolder)
       fetch(folderUrl, params)
       .then(response =>{
         if (!response.ok){
           throw new Error('Something went wrong, try again later')
         }
         return (response.json())
+        
       })
       .then(data => {
         this.props.updateFolders(data)
