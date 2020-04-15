@@ -10,6 +10,7 @@ export default class AddFolder extends Component {
     this.state = {value: ''};
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
+  this.newAddedFolder = this.handleSubmit.bind(this)
   }
   
   handleChange(e){
@@ -23,6 +24,27 @@ export default class AddFolder extends Component {
     const folderName = this.state.value;
     console.log('the folder name is: ' + folderName)
     this.props.newAddedFolder(folderName)
+  }
+
+  newAddedFolder(newFolder) {
+    const folderUrl = 'http://localhost:9090/folders'
+      const params = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newFolder)
+      }
+      fetch(folderUrl, params)
+      .then(response =>{
+        if (!response.ok){
+          throw new Error('Something went wrong, try again later')
+        }
+        return (response.json())
+      })
+      .then(data => {
+        this.props.updateFolders(data)
+      })
   }
     render() {
     return (

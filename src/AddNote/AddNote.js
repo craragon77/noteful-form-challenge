@@ -19,8 +19,8 @@ export default class AddNote extends Component {
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleContentChange = this.handleContentChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.backToHome = this.backToHome.bind(this)
-    this.submitAndGoHome = this.submitAndGoHome.bind(this)
+    //this.backToHome = this.backToHome.bind(this)
+    //this.submitAndGoHome = this.submitAndGoHome.bind(this)
   }
   handleNameChange(e){
     this.setState({
@@ -41,6 +41,30 @@ export default class AddNote extends Component {
  // backToHome(e){
    // this.props.history.push('/')
   //}
+
+  newAddedNote(newNote) {
+    const notesUrl = 'http://localhost:9090/notes';
+    const params = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newNote)
+    }
+    fetch(notesUrl, params)
+    .then(response => {
+      if(!response.ok){
+        throw new Error('Something went wrong, try again later')
+      }
+      return (response.json());
+    })
+    .then(data => {
+        this.props.updateNotes(data) // lets call this function
+    })
+    .catch(error => {
+      alert('Something went wrong. Try again later')
+    })
+  }
 
   handleSubmit(e){
     e.preventDefault();

@@ -76,31 +76,14 @@ state = {
     })
   }
 
-  newAddedFolder(newFolder) {
-    const folderUrl = 'http://localhost:9090/folders'
-      const params = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({name: newFolder})
-      }
-      fetch(folderUrl, params)
-      .then(response =>{
-        if (!response.ok){
-          throw new Error('Something went wrong, try again later')
-        }
-        return (response.json())
-      })
-      .then(data => {
-        this.setState({
-          value: ' '
-        })
-        //console.log(url + params)
-      })
-      .then(data => {
-        this.setState({folders: [...this.state.folders, data]});
-      })
+  updateFolders = (newFolders) => {
+    let foldersClone  = JSON.parse(JSON.stringify(this.state.folders))
+    foldersClone.push(newFolders)
+    this.setState({
+      folders: foldersClone
+    }, () => {
+      this.props.history.push('/')
+    })
   }
 
   handleAddNote = (newNote) => {
@@ -111,6 +94,17 @@ state = {
       'content': ''
     })
   }
+
+  updateNotes = (newNote) => {
+    let notesClone = JSON.parse(JSON.stringify(this.state.notes))
+    notesClone.push(newNote) 
+    this.setState({
+         notes: notesClone
+    }, () => {
+        this.props.history.push('/')
+    })
+}
+
   renderNavRoutes() {
     const { notes, folders } = this.state
     return (
@@ -192,13 +186,18 @@ state = {
         <Route
           path='/add-folder'
           render = {() => 
-          <AddFolder newAddedFolder={this.newAddedFolder} />}
+          <AddFolder updateFolders = {this.updateFolders}
+          getRequest= {this.getRequest}
+          newAddedNote = {this.newAddedFolder}
+          {...routeProps}
+          folders = {folders}
         />
         <Route
           path='/add-note'
           render={routeProps => {
             return (
-              <AddNote handleAddNote = {this.handleAddNote} getRequest = {this.getRequest} newAddedNote = {this.newAddedNote}
+              <AddNote 
+        updateNotes = {this.updateNotes } getRequest = {this.getRequest} newAddedNote = {this.newAddedNote}
                 {...routeProps}
                 folders={folders}
               />
@@ -230,4 +229,4 @@ state = {
   }
 }
 
-export default App
+export default withRouter(App)
