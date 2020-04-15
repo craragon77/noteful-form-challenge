@@ -151,8 +151,8 @@ state = {
 
   renderMainRoutes() {
     const { notes, folders } = this.state
-    return (
-      <div>
+    return(
+      <>
         {['/', '/folder/:folderId'].map(path =>
           <Route
             exact
@@ -187,12 +187,13 @@ state = {
           path='/add-folder'
           render = {() => 
                 <AddFolder updateFolders = {this.updateFolders}
-                  getRequest= {this.getRequest}
-                  newAddedNote = {this.newAddedFolder}
-                  {...routeProps}
-                    folders = {folders}
+                          getRequest= {this.getRequest}
+                          newAddedNote = {this.newAddedFolder}
+                          {...routeProps}
+                           folders = {folders}
                  />
-           }>
+           }
+          />
         <Route
           path='/add-note'
           render={routeProps => {
@@ -205,8 +206,8 @@ state = {
             )
           }}
         />
-     </div>
-     )
+      </>
+    )}
   render() {
     return (
       <div className='App'>
@@ -227,5 +228,4 @@ state = {
     )
   }
 }
-
 export default withRouter(App)
