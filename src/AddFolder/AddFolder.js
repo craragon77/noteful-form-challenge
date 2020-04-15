@@ -31,9 +31,9 @@ export default class AddFolder extends Component {
       const params = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          body: JSON.stringify(newFolder)
         },
-        body: JSON.stringify(newFolder)
       }
       fetch(folderUrl, params)
       .then(response =>{
@@ -44,6 +44,9 @@ export default class AddFolder extends Component {
       })
       .then(data => {
         this.props.updateFolders(data)
+      })
+      .catch(error => {
+        'Something went wrong with posting the new folder. Try again later'
       })
   }
     render() {

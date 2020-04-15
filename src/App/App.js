@@ -17,6 +17,9 @@ class App extends Component {
     
     this.newAddedFolder = this.newAddedFolder.bind(this)
     this.newAddedNote = this.newAddedNote.bind(this)
+    //this.updateFolders = this.updateFolders.bind(this)
+    //this.updateNotes = this.updateNotes.bind(this)
+
 }
 state = {
       notes: [],
@@ -74,6 +77,27 @@ state = {
     .catch(error => {
       alert('Something went wrong. Try again later')
     })
+  }
+
+  newAddedFolder(newFolder) {
+    const folderUrl = 'http://localhost:9090/folders'
+      const params = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newFolder)
+      }
+      fetch(folderUrl, params)
+      .then(response =>{
+        if (!response.ok){
+          throw new Error('Something went wrong, try again later')
+        }
+        return (response.json())
+      })
+      .then(data => {
+        this.props.updateFolders(data)
+      })
   }
 
   updateFolders = (newFolders) => {
@@ -187,10 +211,10 @@ state = {
           path='/add-folder'
           render = {() => 
                 <AddFolder updateFolders = {this.updateFolders}
-                          getRequest= {this.getRequest}
-                          newAddedNote = {this.newAddedFolder}
-                          {...routeProps}
-                           folders = {folders}
+                  getRequest= {this.getRequest}
+                  newAddedNote = {this.newAddedFolder}
+                  {...routeProps}
+                  folders = {folders}
                  />
            }
           />
