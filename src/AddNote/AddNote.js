@@ -19,6 +19,8 @@ export default class AddNote extends Component {
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleContentChange = this.handleContentChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.backToHome = this.backToHome.bind(this)
+    this.submitAndGoHome = this.submitAndGoHome.bind(this)
   }
   handleNameChange(e){
     this.setState({
@@ -35,6 +37,10 @@ export default class AddNote extends Component {
       selectedFolder: e.target.value
     })
   }
+
+ // backToHome(e){
+   // this.props.history.push('/')
+  //}
 
   handleSubmit(e){
     e.preventDefault();
@@ -55,9 +61,15 @@ export default class AddNote extends Component {
       "modified": testing.time,
       "content": testing.contentValue
     } 
-    {this.props.newAddedFolder(testingTwo)}
-
+    this.newAddedNote(testingTwo)
   }
+
+  //submitAndGoHome(e){
+  //  this.handleSubmit(e)
+  //  this.backToHome(e)
+  //}
+
+
   render() {
     const { folders } = this.props
     return (
@@ -92,7 +104,7 @@ export default class AddNote extends Component {
               </select>
             </div>
             <div className='buttons'>
-              <button type='submit' onClick = {e => this.newAddedFolder(e)}>
+              <button type='submit'>
                 Add note
               </button>
             </div>

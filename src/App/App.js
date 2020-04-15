@@ -9,17 +9,19 @@ import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers'
 import './App.css'
+import {withRouter} from 'react-router-dom';
 
 class App extends Component {
   constructor(props){
     super(props)
-    state = {
-      notes: [],
-      folders: [],
-    }
+    
     this.newAddedFolder = this.newAddedFolder.bind(this)
     this.newAddedNote = this.newAddedNote.bind(this)
 }
+state = {
+      notes: [],
+      folders: [],
+    }
 
   componentDidMount(){
     fetch('http://localhost:9090/folders')
@@ -64,10 +66,10 @@ class App extends Component {
       return (response.json());
     })
     .then(data => {
-      this.setState({note: [...note, data]});
+      this.setState({note: [...this.state.notes, data]});
     })
     .then(e => {
-        this.props.history.push('/')
+        this.props.history.push('/add')
     })
     .catch(error => {
       alert('Something went wrong. Try again later')
@@ -97,11 +99,8 @@ class App extends Component {
         //console.log(url + params)
       })
       .then(data => {
-        this.setState({folders: [...folders, data]});
+        this.setState({folders: [...this.state.folders, data]});
       })
-      .then(e => {
-        this.props.history.push('/')
-    })
   }
 
   handleAddNote = (newNote) => {
@@ -192,8 +191,8 @@ class App extends Component {
         />
         <Route
           path='/add-folder'
-          component={AddFolder}
-          newAddedFolder = {this.newAddedFolder}
+          render = {() => 
+          <AddFolder newAddedFolder={this.newAddedFolder} />}
         />
         <Route
           path='/add-note'
