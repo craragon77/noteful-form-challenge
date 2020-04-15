@@ -49,47 +49,15 @@ export default class AddNote extends Component {
     ' , and its contents are as follows: ' + contentValue + 
     ' , and the time is: ' + time + 
     ' , and the folder id is: ' + folderIdValue);
-    const url = 'http://localhost:9090/notes';
     const testingTwo = {
       "folderId": testing.folderIdValue,
       "name": testing.nameValue,
       "modified": testing.time,
       "content": testing.contentValue
     } 
-    const params = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(testingTwo)
-    }
-    
-    if (folderIdValue === ''){
-      alert('please select a folder into which this note can live')
-    }
-     else (
-       fetch(url, params)
-      .then(response => {
-        if(!response.ok){
-          throw new Error('Something went wrong, try again later')
-        }
-        return (response.json());
-      })
-      .then(data => {
-        this.setState({
-          name: '',
-          content: '',
-          selectedFolder: ''
-        })
-      })
-      .then(e => {
-          this.props.history.push('/')
-      })
-        .catch(error => {
-          alert('Something went wrong. Try again later')
-        })
-     )
-    }
+    {this.props.newAddedFolder(testingTwo)}
+
+  }
   render() {
     const { folders } = this.props
     return (
@@ -124,7 +92,7 @@ export default class AddNote extends Component {
               </select>
             </div>
             <div className='buttons'>
-              <button type='submit'>
+              <button type='submit' onClick = {e => this.newAddedFolder(e)}>
                 Add note
               </button>
             </div>

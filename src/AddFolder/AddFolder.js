@@ -22,33 +22,7 @@ export default class AddFolder extends Component {
     e.preventDefault()
     const folderName = this.state.value;
     console.log('the folder name is: ' + folderName)
-    const url = 'http://localhost:9090/folders';
-    const params = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({name: folderName})
-    }
-    fetch(url, params)
-    .then(response =>{
-      if (!response.ok){
-        throw new Error('Something went wrong, try again later')
-      }
-      return (response.json())
-    })
-    .then(data => {
-      this.setState({
-        value: ' '
-      })
-      console.log(url + params)
-    })
-    .then(e => {
-      this.props.history.push('/')
-  })
-    .catch(error => {
-      alert('something went wrong, try again later')
-    })
+    {this.props.newAddedFolder(folderName)}
   }
     render() {
     return (

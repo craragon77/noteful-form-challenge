@@ -11,37 +11,96 @@ import { getNotesForFolder, findNote, findFolder } from '../notes-helpers'
 import './App.css'
 
 class App extends Component {
+  constructor(props){
+    super(props)
     state = {
-    notes: [],
-    folders: [],
-  };
-  
+      notes: [],
+      folders: [],
+    }
+    this.newAddedFolder = this.newAddedFolder.bind(this)
+    this.newAddedNote = this.newAddedNote.bind(this)
+}
 
-  
   componentDidMount(){
-    setInterval(() => 6000)
     fetch('http://localhost:9090/folders')
-    .then(response => response.json())
-    .then(data =>{ 
-      const getFolders = data
-      this.setState({
-        folders: getFolders
+      .then(response => response.json())
+      .then(data =>{ 
+        const getFolders = data
+        this.setState({
+          folders: getFolders
+        })
       })
+      .catch(error => {
+        console.log('idk whats up with the folders, try again later #catch')
+      })
+      fetch('http://localhost:9090/notes')
+      .then(response => response.json())
+      .then(data => {
+        const getNotes = data
+        this.setState({
+          notes: getNotes
+        })
+      })
+      .catch(error => {
+        console.log('idk whats up with the notes, try again later #catch')
+        console.log(error)
+      })
+  }
+
+  newAddedNote(newNote) {
+    const notesUrl = 'http://localhost:9090/notes';
+    const params = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newNote)
+    }
+    fetch(notesUrl, params)
+    .then(response => {
+      if(!response.ok){
+        throw new Error('Something went wrong, try again later')
+      }
+      return (response.json());
     })
-    .catch(error => {
-      console.log('idk whats up with the folders, try again later #catch')
-    })
-    fetch('http://localhost:9090/notes')
-    .then(response => response.json())
     .then(data => {
-      const getNotes = data
-      this.setState({
-        notes: getNotes
-      })
+      this.setState({note: [...note, data]});
+    })
+    .then(e => {
+        this.props.history.push('/')
     })
     .catch(error => {
-      console.log('idk whats up with the notes, try again later #catch')
-      console.log(error)
+      alert('Something went wrong. Try again later')
+    })
+  }
+
+  newAddedFolder(newFolder) {
+    const folderUrl = 'http://localhost:9090/folders'
+      const params = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: newFolder})
+      }
+      fetch(folderUrl, params)
+      .then(response =>{
+        if (!response.ok){
+          throw new Error('Something went wrong, try again later')
+        }
+        return (response.json())
+      })
+      .then(data => {
+        this.setState({
+          value: ' '
+        })
+        //console.log(url + params)
+      })
+      .then(data => {
+        this.setState({folders: [...folders, data]});
+      })
+      .then(e => {
+        this.props.history.push('/')
     })
   }
 
@@ -134,12 +193,13 @@ class App extends Component {
         <Route
           path='/add-folder'
           component={AddFolder}
+          newAddedFolder = {this.newAddedFolder}
         />
         <Route
           path='/add-note'
           render={routeProps => {
             return (
-              <AddNote handleAddNote = {this.handleAddNote}
+              <AddNote handleAddNote = {this.handleAddNote} getRequest = {this.getRequest} newAddedNote = {this.newAddedNote}
                 {...routeProps}
                 folders={folders}
               />
