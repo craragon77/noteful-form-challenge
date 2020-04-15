@@ -23,7 +23,7 @@ export default class AddFolder extends Component {
     e.preventDefault()
     const folderName = this.state.value;
     console.log('the folder name is: ' + folderName)
-    this.props.newAddedFolder(folderName)
+    this.newAddedFolder(folderName)
   }
 
   newAddedFolder(newFolder) {
