@@ -10,7 +10,7 @@ export default class AddFolder extends Component {
     this.state = {value: ''};
   this.handleChange = this.handleChange.bind(this);
   this.handleSubmit = this.handleSubmit.bind(this);
-  this.newAddedFolder = this.handleSubmit.bind(this)
+  this.newAddedFolder = this.newAddedFolder.bind(this)
   }
   
   handleChange(e){
@@ -20,19 +20,19 @@ export default class AddFolder extends Component {
   }
   
   handleSubmit(e){
-    e.preventDefault()
+    e.preventDefault();
     const folderName = this.state.value;
     console.log('the folder name is: ' + folderName)
     this.newAddedFolder(folderName)
   }
 
-  newAddedFolder(newFolder) {
+  newAddedFolder(folderName) {
     const folderUrl = 'http://localhost:9090/folders'
       const params = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          body: JSON.stringify(newFolder)
+          body: JSON.stringify(folderName)
         },
       }
       fetch(folderUrl, params)
