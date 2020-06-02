@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './AddFolder.css';
 import FolderErrorBoundries from './FolderErrorBoundries';
 import propTypes from 'prop-types';
+import API_KEY from '../config'
 
 export default class AddFolder extends Component {
   constructor(props){
@@ -28,10 +29,11 @@ export default class AddFolder extends Component {
 
   newAddedFolder(newFolder) {
     console.log(newFolder)
-    const folderUrl = 'http://localhost:9090/folders'
+    const folderUrl = 'https://noteful-repo.now.sh'
       const params = {
         method: 'POST',
         headers: {
+          'Authorization': API_KEY,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({name: newFolder})

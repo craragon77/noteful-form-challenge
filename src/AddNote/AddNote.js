@@ -4,7 +4,7 @@ import './AddNote.css'
 import NoteErrorBoundries from './NoteErrorBoundries';
 import propTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
-
+import API_KEY from '../config'
 export default class AddNote extends Component {
   static defaultProps = {
     folders: [],
@@ -43,10 +43,11 @@ export default class AddNote extends Component {
   //}
 
   newAddedNote(newNote) {
-    const notesUrl = 'http://localhost:9090/notes';
+    const notesUrl = 'https://noteful-repo.now.sh';
     const params = {
       method: 'POST',
       headers: {
+        'Authorization': API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newNote)
