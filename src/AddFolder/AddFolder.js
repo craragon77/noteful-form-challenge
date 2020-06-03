@@ -31,7 +31,7 @@ export default class AddFolder extends Component {
 
   newAddedFolder(newFolder) {
     console.log(newFolder)
-    const folderUrl = process.env.REACT_APP_API_ENDPOINT
+    const folderUrl = process.env.REACT_APP_API_FOLDERS_ENDPOINT
       const params = {
         method: 'POST',
         headers: {
@@ -42,7 +42,7 @@ export default class AddFolder extends Component {
       }
       console.log(newFolder)
       console.log(process.env.REACT_APP_API_KEY)
-      console.log(process.env.REACT_APP_API_ENDPOINT)
+      console.log(process.env.REACT_APP_API_FOLDERS_ENDPOINT)
       fetch(folderUrl, params)
       .then(response =>{
         if (!response.ok){

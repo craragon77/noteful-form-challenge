@@ -28,7 +28,7 @@ state = {
     }
 
   componentDidMount(){
-    fetch('https://noteful-repo.now.sh/api/folders')
+    fetch(process.env.REACT_APP_API_FOLDERS_ENDPOINT)
       .then(response => response.json())
       .then(data =>{ 
         const getFolders = data
@@ -39,7 +39,7 @@ state = {
       .catch(error => {
         console.log('idk whats up with the folders, try again later #catch')
       })
-      fetch('https://noteful-repo.now.sh/api/notes')
+      fetch(process.env.REACT_APP_API_NOTES_ENDPOINT)
       .then(response => response.json())
       .then(data => {
         const getNotes = data
@@ -54,11 +54,11 @@ state = {
   }
 
   newAddedNote(newNote) {
-    const notesUrl = 'http://localhost:9090/notes';
+    const notesUrl = process.env.REACT_APP_API_NOTES_ENDPOINT
     const params = {
       method: 'POST',
       headers: {
-        'Authorization': API_KEY,
+        'Authorization': process.env.REACT_APP_API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newNote)
@@ -82,10 +82,11 @@ state = {
   } 
 
   newAddedFolder(newFolder) {
-    const folderUrl = 'http://localhost:9090/folders'
+    const folderUrl = process.env.REACT_APP_API_FOLDERS_ENDPOINT
       const params = {
         method: 'POST',
         headers: {
+          'Authorization': process.env.REACT_APP_API_KEY,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(newFolder)

@@ -44,11 +44,11 @@ export default class AddNote extends Component {
   //}
 
   newAddedNote(newNote) {
-    const notesUrl = 'https://noteful-repo.now.sh';
+    const notesUrl = process.env.REACT_APP_API_NOTES_ENDPOINT
     const params = {
       method: 'POST',
       headers: {
-        'Authorization': API_KEY,
+        'Authorization': process.env.REACT_APP_API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newNote)
