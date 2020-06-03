@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import './AddFolder.css';
 import FolderErrorBoundries from './FolderErrorBoundries';
 import propTypes from 'prop-types';
-import API_KEY from '../config'
+import API_THINGS from '../config'
+import dotenv from 'dotenv';
+
 
 export default class AddFolder extends Component {
   constructor(props){
@@ -29,16 +31,18 @@ export default class AddFolder extends Component {
 
   newAddedFolder(newFolder) {
     console.log(newFolder)
-    const folderUrl = 'https://noteful-repo.now.sh'
+    const folderUrl = process.env.REACT_APP_API_ENDPOINT
       const params = {
         method: 'POST',
         headers: {
-          'Authorization': API_KEY,
+          'key': process.env.REACT_APP_API_KEY,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({name: newFolder})
       }
       console.log(newFolder)
+      console.log(process.env.REACT_APP_API_KEY)
+      console.log(process.env.REACT_APP_API_ENDPOINT)
       fetch(folderUrl, params)
       .then(response =>{
         if (!response.ok){

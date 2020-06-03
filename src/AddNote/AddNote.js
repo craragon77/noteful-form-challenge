@@ -5,6 +5,7 @@ import NoteErrorBoundries from './NoteErrorBoundries';
 import propTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import API_KEY from '../config'
+
 export default class AddNote extends Component {
   static defaultProps = {
     folders: [],

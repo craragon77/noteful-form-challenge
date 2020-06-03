@@ -10,6 +10,7 @@ import AddNote from '../AddNote/AddNote'
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers'
 import './App.css'
 import {withRouter} from 'react-router-dom';
+import API_KEY from '../config';
 
 class App extends Component {
   constructor(props){
@@ -27,7 +28,7 @@ state = {
     }
 
   componentDidMount(){
-    fetch('http://localhost:9090/folders')
+    fetch('https://noteful-repo.now.sh/api/folders')
       .then(response => response.json())
       .then(data =>{ 
         const getFolders = data
@@ -38,7 +39,7 @@ state = {
       .catch(error => {
         console.log('idk whats up with the folders, try again later #catch')
       })
-      fetch('http://localhost:9090/notes')
+      fetch('https://noteful-repo.now.sh/api/notes')
       .then(response => response.json())
       .then(data => {
         const getNotes = data
@@ -57,6 +58,7 @@ state = {
     const params = {
       method: 'POST',
       headers: {
+        'Authorization': API_KEY,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(newNote)
